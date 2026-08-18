@@ -29,7 +29,8 @@
     if (!control.querySelector(".tc-hh-menu-label")) {
       var label = document.createElement("span");
       label.className = "tc-hh-menu-label";
-      label.textContent = "High Holidays menu";
+      label.textContent = "Menu";
+      label.title = "High Holidays menu";
       control.insertBefore(label, control.firstChild);
     }
 
