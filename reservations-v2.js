@@ -1,4 +1,4 @@
-(function(){var d=document;if(d.getElementById("tc-hh-reservations-ux-v2"))return;var l=d.createElement("link");l.id="tc-hh-reservations-ux-v2";l.rel="stylesheet";l.href="https://cdn.jsdelivr.net/gh/rabbi-rgb/jewishtricities-web-assets@902d2dcc7955bf147deb5648ab801a1d1e925788/reservations-v2.css";d.head.appendChild(l);}());
+(function(){var d=document;if(d.getElementById("tc-hh-reservations-ux-v2"))return;var l=d.createElement("link");l.id="tc-hh-reservations-ux-v2";l.rel="stylesheet";l.href="https://cdn.jsdelivr.net/gh/rabbi-rgb/jewishtricities-web-assets@deb768620b2c206e23c7c82d986bf7f2d701664d/reservations-v2.css";d.head.appendChild(l);}());
 (function () {
   var path = window.location.pathname || "";
   var search = window.location.search || "";
@@ -29,8 +29,7 @@
     if (!control.querySelector(".tc-hh-menu-label")) {
       var label = document.createElement("span");
       label.className = "tc-hh-menu-label";
-      label.textContent = "Menu";
-      label.title = "High Holidays menu";
+      label.textContent = "High Holidays menu";
       control.insertBefore(label, control.firstChild);
     }
 
@@ -257,10 +256,26 @@
     return true;
   }
 
+
+  function enhanceDayHeaders() {
+    var matched = 0;
+    document.querySelectorAll(formSelector + " h3").forEach(function (heading) {
+      var text = (heading.textContent || "").trim();
+      if (!/^(?:Rosh Hashanah, Day [12]|Yom Kippur)$/.test(text)) return;
+      heading.classList.add("tc-hh-day-title");
+      var table = heading.closest("table");
+      if (table) table.classList.add("tc-hh-day-card");
+      var date = heading.nextElementSibling;
+      if (date && date.tagName === "P") date.classList.add("tc-hh-day-date");
+      matched += 1;
+    });
+    return matched > 0;
+  }
+
   function applyEnhancements() {
     return {
       title: addMobileTitle(),
-      menu: labelMobileMenu(),
+      dayHeaders: enhanceDayHeaders(),
       services: enhanceServiceLabels(),
       selected: syncSelectedCards(),
       progress: addProgress(),
