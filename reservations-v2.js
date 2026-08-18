@@ -258,15 +258,76 @@
 
 
   function enhanceDayHeaders() {
+    var startWrap = document.getElementById("tc-hh-start-reservation-wrap");
+    if (startWrap) {
+      startWrap.style.setProperty("display", "none", "important");
+      startWrap.setAttribute("aria-hidden", "true");
+    }
+
+    var mobile = window.matchMedia &&
+      window.matchMedia("(max-width: 600px)").matches;
     var matched = 0;
+
     document.querySelectorAll(formSelector + " h3").forEach(function (heading) {
       var text = (heading.textContent || "").trim();
       if (!/^(?:Rosh Hashanah, Day [12]|Yom Kippur)$/.test(text)) return;
+
       heading.classList.add("tc-hh-day-title");
+      [
+        ["margin", "0"],
+        ["color", "#7e1029"],
+        ["font-family", "Georgia, Times New Roman, serif"],
+        ["font-size", mobile ? "21px" : "24px"],
+        ["line-height", "1.15"],
+        ["font-weight", "normal"],
+        ["letter-spacing", "-0.2px"]
+      ].forEach(function (rule) {
+        heading.style.setProperty(rule[0], rule[1], "important");
+      });
+
       var table = heading.closest("table");
-      if (table) table.classList.add("tc-hh-day-card");
+      if (table) {
+        table.classList.add("tc-hh-day-card");
+        [
+          ["border", "0"],
+          ["border-left", "0"],
+          ["border-collapse", "separate"],
+          ["border-radius", mobile ? "12px" : "14px"],
+          ["background", "linear-gradient(135deg, #fffaf4 0%, #fbf6ee 100%)"],
+          ["box-shadow", "inset 0 0 0 1px rgba(181,138,69,.26), 0 8px 24px rgba(54,38,35,.06)"],
+          ["overflow", "hidden"]
+        ].forEach(function (rule) {
+          table.style.setProperty(rule[0], rule[1], "important");
+        });
+
+        var cell = heading.closest("td");
+        if (cell) {
+          cell.style.setProperty("padding", mobile ? "14px 15px" : "16px 18px", "important");
+          cell.style.setProperty("border-left", "4px solid #b58a45", "important");
+        }
+      }
+
       var date = heading.nextElementSibling;
-      if (date && date.tagName === "P") date.classList.add("tc-hh-day-date");
+      if (date && date.tagName === "P") {
+        date.classList.add("tc-hh-day-date");
+        [
+          ["display", "inline-block"],
+          ["margin", "8px 0 0"],
+          ["padding", mobile ? "4px 8px" : "5px 9px"],
+          ["border", "1px solid rgba(181,138,69,.24)"],
+          ["border-radius", "999px"],
+          ["background", "#fff"],
+          ["color", "#7e1029"],
+          ["font-family", "Muli, Arial, sans-serif"],
+          ["font-size", mobile ? "10px" : "11px"],
+          ["line-height", "1.25"],
+          ["font-weight", "900"],
+          ["letter-spacing", ".55px"],
+          ["text-transform", "uppercase"]
+        ].forEach(function (rule) {
+          date.style.setProperty(rule[0], rule[1], "important");
+        });
+      }
       matched += 1;
     });
     return matched > 0;
