@@ -16,10 +16,15 @@
     var style = document.createElement('style');
     style.id = 'tc-hh-v10-polish';
     style.textContent = [
-      /* Yom Kippur heading: clean, integrated, not a separate card. */
-      FORM + ' .form-line[data-tc-hh-yk="heading"]{margin:10px 0 2px !important;padding:0 !important;}',
-      FORM + ' .form-line[data-tc-hh-yk="heading"] table{border-top:2px solid #a71938 !important;}',
-      FORM + ' .form-line[data-tc-hh-yk="heading"] table td{padding:16px 2px 12px !important;}',
+      /* Yom Kippur heading: clean and integrated, with a short gold accent. */
+      FORM + ' .form-line[data-tc-hh-yk="heading"]{margin:14px 0 2px !important;padding:0 !important;}',
+      FORM + ' .form-line[data-tc-hh-yk="heading"]::before{' +
+        'content:"" !important;display:block !important;width:54px !important;height:3px !important;' +
+        'margin:0 0 12px 2px !important;border-radius:999px !important;' +
+        'background:linear-gradient(90deg,#b58a45 0%,#d4b878 100%) !important;' +
+      '}',
+      FORM + ' .form-line[data-tc-hh-yk="heading"] table{border-top:0 !important;}',
+      FORM + ' .form-line[data-tc-hh-yk="heading"] table td{padding:0 2px 12px !important;}',
       FORM + ' .form-line[data-tc-hh-yk="heading"] h3{font-size:29px !important;letter-spacing:-.25px !important;}',
       FORM + ' .form-line[data-tc-hh-yk="heading"] h3 + p{margin-top:4px !important;color:#8f7447 !important;font-size:13px !important;letter-spacing:.15px !important;}',
 
@@ -89,7 +94,9 @@
       FORM + ' #hh-step-3{margin-top:27px !important;}',
 
       '@media screen and (max-width:720px){',
-        FORM + ' .form-line[data-tc-hh-yk="heading"] table td{padding:14px 0 9px !important;}',
+        FORM + ' .form-line[data-tc-hh-yk="heading"]{margin-top:12px !important;}',
+        FORM + ' .form-line[data-tc-hh-yk="heading"]::before{width:46px !important;height:3px !important;margin-bottom:10px !important;}',
+        FORM + ' .form-line[data-tc-hh-yk="heading"] table td{padding:0 0 9px !important;}',
         FORM + ' .form-line[data-tc-hh-yk="heading"] h3{font-size:26px !important;}',
         FORM + ' .form-line[data-tc-hh-yk="individual"] .form-single-column{grid-template-columns:minmax(0,1fr) !important;gap:8px !important;}',
         FORM + ' .form-line[data-tc-hh-yk="individual"] .form-checkbox-item{min-height:52px !important;padding:11px 12px !important;}',
