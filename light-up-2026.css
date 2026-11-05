@@ -224,6 +224,8 @@ html.tc-lightup-2026 .tc-lightup-art__note {
 html.tc-lightup-2026 #RegisterSinglePage {
   width: min(1000px, calc(100% - 40px)) !important;
   max-width: 1000px !important;
+  height: auto !important;
+  min-height: 0 !important;
   margin: 0 auto 58px !important;
   padding: 0 !important;
   overflow: hidden;
