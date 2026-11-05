@@ -202,54 +202,11 @@ html.tc-lightup-2026 .tc-lightup-art {
 }
 
 html.tc-lightup-2026 .tc-lightup-menorah {
-  position: relative;
-  display: flex;
-  gap: 9px;
-  align-items: flex-end;
-  justify-content: center;
-  width: 92%;
-  height: 230px;
-  padding-bottom: 42px;
-  box-sizing: border-box;
-}
-
-html.tc-lightup-2026 .tc-lightup-menorah::before {
-  position: absolute;
-  right: 12%;
-  bottom: 28px;
-  left: 12%;
-  height: 5px;
-  border-radius: 999px;
-  content: "";
-  background: linear-gradient(90deg, transparent, var(--lu-gold) 15%, #fff1a7 50%, var(--lu-gold) 85%, transparent);
-  box-shadow: 0 0 18px rgba(255, 198, 63, .38);
-}
-
-html.tc-lightup-2026 .tc-lightup-candle {
-  position: relative;
   display: block;
-  width: 10px;
-  height: var(--candle-height);
-  border-radius: 9px 9px 2px 2px;
-  background: linear-gradient(90deg, var(--lu-gold-deep), #ffe58d 50%, var(--lu-gold-deep));
-  box-shadow: 0 0 12px rgba(255, 198, 63, .18);
-}
-
-html.tc-lightup-2026 .tc-lightup-candle::before {
-  position: absolute;
-  top: -22px;
-  left: 50%;
-  width: 14px;
-  height: 22px;
-  border-radius: 75% 25% 65% 35%;
-  content: "";
-  background: linear-gradient(160deg, #fff8bd 4%, #ffdc3c 48%, #f28b20 94%);
-  box-shadow: 0 0 15px rgba(255, 218, 60, .82), 0 0 35px rgba(255, 188, 53, .45);
-  transform: translateX(-50%) rotate(8deg);
-}
-
-html.tc-lightup-2026 .tc-lightup-candle:nth-child(5) {
-  width: 12px;
+  width: min(88%, 360px);
+  height: 278px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 14px rgba(255, 198, 63, .35)) drop-shadow(0 20px 30px rgba(3, 22, 49, .2));
 }
 
 html.tc-lightup-2026 .tc-lightup-art__note {
@@ -456,7 +413,8 @@ html.tc-lightup-2026 #RegisterSinglePage textarea:focus {
   }
 
   html.tc-lightup-2026 .tc-lightup-menorah {
-    height: 190px;
+    width: min(78%, 340px);
+    height: 210px;
   }
 
   html.tc-lightup-2026 #RegisterHeader {
@@ -495,14 +453,8 @@ html.tc-lightup-2026 #RegisterSinglePage textarea:focus {
   }
 
   html.tc-lightup-2026 .tc-lightup-menorah {
-    gap: 7px;
-    height: 160px;
-    padding-bottom: 32px;
-  }
-
-  html.tc-lightup-2026 .tc-lightup-candle {
-    width: 8px;
-    height: calc(var(--candle-height) * .72);
+    width: min(80%, 270px);
+    height: 185px;
   }
 
   html.tc-lightup-2026 #RegisterSinglePage {
