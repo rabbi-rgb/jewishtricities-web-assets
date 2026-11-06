@@ -32,6 +32,12 @@
     '1800': 1800
   };
 
+  var surveyChoices = [
+    'I am Jewish and want to celebrate Chanukkah',
+    'I enjoy learning more about traditions and cultures.',
+    'Other'
+  ];
+
   function text(element, value) {
     if (element && element.textContent !== value) element.textContent = value;
   }
@@ -106,6 +112,23 @@
       document.querySelector('#Performances > .regular'),
       'Choose the number of adults and children attending. After selecting your guests, you’ll have the option to support the celebration with a donation.'
     );
+
+    Array.prototype.forEach.call(document.querySelectorAll('#RegisterSinglePage .regular'), function (element) {
+      if (/sponsorship selection before submitting your registration/i.test(element.textContent || '')) {
+        text(element, 'Please review the number of adults and children and any donation selection before submitting your registration.');
+      }
+    });
+  }
+
+  function normalizeSurvey(survey) {
+    var inputs = survey.querySelectorAll('input[type="radio"]');
+    Array.prototype.forEach.call(inputs, function (input, index) {
+      if (!surveyChoices[index]) return;
+      input.value = surveyChoices[index];
+      var label = survey.querySelector('label[for="' + input.id + '"]');
+      var labelText = label && label.querySelector('span');
+      text(labelText || label, surveyChoices[index]);
+    });
   }
 
   function writeNativeDonation(input, amount) {
@@ -159,6 +182,7 @@
 
     var survey = document.getElementById('AdditionalInformation');
     if (survey) {
+      normalizeSurvey(survey);
       survey.classList.add('tc-lightup-survey');
       if (card.nextElementSibling !== survey) card.insertAdjacentElement('afterend', survey);
     }
