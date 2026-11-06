@@ -489,6 +489,27 @@ html.tc-lightup-2026 #RegisterSinglePage input[type="tel"] {
   box-sizing: border-box !important;
 }
 
+html.tc-lightup-2026 #RegisterSinglePage select {
+  min-height: 46px !important;
+  padding: 10px 44px 10px 12px !important;
+  border: 1px solid #bdcfd7 !important;
+  border-radius: 12px !important;
+  color: var(--lu-ink) !important;
+  background-color: #fff !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.25 6 6.25 11 1.25' fill='none' stroke='%2313293d' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 16px center !important;
+  background-size: 12px 8px !important;
+  box-shadow: inset 0 1px 2px rgba(7, 31, 61, .04) !important;
+  box-sizing: border-box !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage .tc-lightup-hidden-title {
+  display: none !important;
+}
+
 html.tc-lightup-2026 #performance_32755_priceCategory {
   width: 100% !important;
   min-width: 0 !important;
