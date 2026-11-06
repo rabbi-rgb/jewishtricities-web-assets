@@ -247,7 +247,7 @@ html.tc-lightup-2026 #RegisterSinglePage {
 }
 
 html.tc-lightup-2026 #RegisterHeader {
-  display: grid !important;
+  display: none !important;
   grid-template-columns: minmax(0, 1.45fr) minmax(260px, .55fr);
   gap: 38px;
   padding: 34px 38px !important;
@@ -325,16 +325,26 @@ html.tc-lightup-2026 #Performances .performance {
   margin: 0 !important;
   padding: 0 !important;
   border: 1px solid var(--lu-line) !important;
-  border-radius: 16px !important;
+  border-radius: 18px !important;
   background: var(--lu-ice) !important;
 }
 
 html.tc-lightup-2026 #Performances .toggle_options {
-  display: flex !important;
   flex-wrap: wrap;
   gap: 14px;
   align-items: flex-end;
   padding: 22px !important;
+}
+
+html.tc-lightup-2026 #Performances .toggle_options[style*="display: block"] {
+  display: flex !important;
+}
+
+html.tc-lightup-2026 #Performances .toggle_message {
+  padding: 16px 20px !important;
+  color: var(--lu-teal) !important;
+  cursor: pointer;
+  font: 700 14px/1.4 Arial, sans-serif !important;
 }
 
 html.tc-lightup-2026 #Performances .toggle_options > .inline_block {
@@ -357,7 +367,7 @@ html.tc-lightup-2026 #RegisterSinglePage input[type="tel"] {
   min-height: 46px !important;
   padding: 10px 12px !important;
   border: 1px solid #bdcfd7 !important;
-  border-radius: 9px !important;
+  border-radius: 12px !important;
   color: var(--lu-ink) !important;
   background: #fff !important;
   box-shadow: inset 0 1px 2px rgba(7, 31, 61, .04) !important;
@@ -415,6 +425,39 @@ html.tc-lightup-2026 #RegisterSinglePage textarea:focus {
 
 html.tc-lightup-2026 .tc-lightup-native-donation-row {
   display: none !important;
+}
+
+html.tc-lightup-2026 #Summary,
+html.tc-lightup-2026 #ReserversInformation,
+html.tc-lightup-2026 #Payment {
+  margin: 20px 0 0 !important;
+  padding: 22px !important;
+  border: 1px solid var(--lu-line) !important;
+  border-radius: 18px !important;
+  background: #fff !important;
+  box-shadow: 0 12px 30px rgba(17, 63, 88, .07) !important;
+  box-sizing: border-box !important;
+}
+
+html.tc-lightup-2026 #Summary > .separator {
+  display: none !important;
+}
+
+html.tc-lightup-2026 #Summary > .large_top_padding,
+html.tc-lightup-2026 #ReserversInformation > .large_top_padding,
+html.tc-lightup-2026 #Payment > .large_top_padding {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+html.tc-lightup-2026 #Summary .title.large,
+html.tc-lightup-2026 #ReserversInformation .title.large,
+html.tc-lightup-2026 #Payment .title.large {
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  color: var(--lu-night) !important;
+  font: 700 22px/1.25 Georgia, "Times New Roman", serif !important;
 }
 
 html.tc-lightup-2026 #tc-lightup-donation,
@@ -556,7 +599,7 @@ html.tc-lightup-2026 #RegisterSinglePage #tc-lightup-custom-amount {
   min-height: 46px !important;
   padding: 10px 12px !important;
   border: 1px solid #bdcfd7 !important;
-  border-radius: 9px !important;
+  border-radius: 12px !important;
   color: var(--lu-ink) !important;
   background: #fff !important;
   box-sizing: border-box !important;
@@ -572,12 +615,17 @@ html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey:empty {
   display: none !important;
 }
 
+html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey > .separator {
+  display: none !important;
+}
+
 html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .title.large {
   display: none !important;
 }
 
 html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .large_top_padding {
-  padding-top: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-all,
@@ -618,21 +666,37 @@ html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-multiple-col
   width: 100% !important;
 }
 
+html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-single-column {
+  display: grid !important;
+  gap: 8px;
+  width: 100% !important;
+}
+
 html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-radio-item,
 html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-checkbox-item {
   display: flex !important;
   align-items: flex-start;
   gap: 9px;
   min-width: 0;
-  min-height: 60px;
+  min-height: 50px;
   margin: 0 !important;
-  padding: 13px 14px !important;
+  padding: 10px 12px !important;
   border: 1px solid #d8e5e8 !important;
   border-radius: 12px !important;
   color: var(--lu-ink) !important;
   background: var(--lu-ice) !important;
   font: 500 13px/1.45 Arial, sans-serif !important;
   box-sizing: border-box !important;
+}
+
+html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-radio-item label,
+html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-checkbox-item label,
+html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-radio-item label span,
+html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-checkbox-item label span {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--lu-ink) !important;
+  font: 500 14px/1.4 Arial, sans-serif !important;
 }
 
 html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-radio-item:has(input:checked),
@@ -690,20 +754,23 @@ html.tc-lightup-2026 #Summary #Totals {
   html.tc-lightup-2026 .tc-lightup-hero__inner {
     width: 100%;
     min-height: 0;
-    gap: 24px;
-    padding: 36px 22px 26px;
+    gap: 18px;
+    padding: 28px 20px 22px;
   }
 
   html.tc-lightup-2026 .tc-lightup-title {
-    font-size: clamp(38px, 12vw, 52px);
+    font-size: clamp(36px, 11vw, 46px);
   }
 
   html.tc-lightup-2026 .tc-lightup-tagline {
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 1.55;
   }
 
   html.tc-lightup-2026 .tc-lightup-highlights {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 12px;
+    font-size: 12px;
   }
 
   html.tc-lightup-2026 .tc-lightup-facts {
@@ -712,13 +779,13 @@ html.tc-lightup-2026 #Summary #Totals {
   }
 
   html.tc-lightup-2026 .tc-lightup-art {
-    min-height: 205px;
-    border-radius: 28px 28px 16px 16px;
+    min-height: 174px;
+    border-radius: 22px 22px 16px 16px;
   }
 
   html.tc-lightup-2026 .tc-lightup-menorah {
-    width: min(80%, 250px);
-    height: 168px;
+    width: min(76%, 220px);
+    height: 140px;
   }
 
   html.tc-lightup-2026 #RegisterSinglePage {
@@ -727,7 +794,7 @@ html.tc-lightup-2026 #Summary #Totals {
 
   html.tc-lightup-2026 #RegisterHeader,
   html.tc-lightup-2026 #RegisterBody {
-    padding: 24px 17px !important;
+    padding: 20px 14px !important;
   }
 
   html.tc-lightup-2026 #RegisterHeader .event_name {
@@ -738,7 +805,7 @@ html.tc-lightup-2026 #Summary #Totals {
     font-size: 27px !important;
   }
 
-  html.tc-lightup-2026 #Performances .toggle_options {
+  html.tc-lightup-2026 #Performances .toggle_options[style*="display: block"] {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
@@ -761,9 +828,9 @@ html.tc-lightup-2026 #Summary #Totals {
 
   html.tc-lightup-2026 #tc-lightup-donation,
   html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey {
-    margin-top: 20px !important;
-    padding: 20px 16px !important;
-    border-radius: 15px !important;
+    margin-top: 16px !important;
+    padding: 18px 14px !important;
+    border-radius: 18px !important;
   }
 
   html.tc-lightup-2026 #tc-lightup-donation-title {
@@ -771,18 +838,36 @@ html.tc-lightup-2026 #Summary #Totals {
   }
 
   html.tc-lightup-2026 .tc-lightup-donation__choices {
-    grid-template-columns: 1fr;
-    gap: 9px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   }
 
   html.tc-lightup-2026 .tc-lightup-donation__choice {
-    min-height: 0;
-    padding: 13px !important;
+    min-height: 68px;
+    gap: 7px;
+    padding: 10px !important;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-donation__choice strong {
+    font-size: 13px;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-donation__choice small {
+    font-size: 11px;
   }
 
   html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-label-left,
   html.tc-lightup-2026 #AdditionalInformation.tc-lightup-survey .form-label-top {
-    font-size: 20px !important;
+    margin-bottom: 10px !important;
+    font-size: 18px !important;
+  }
+
+  html.tc-lightup-2026 #Summary,
+  html.tc-lightup-2026 #ReserversInformation,
+  html.tc-lightup-2026 #Payment {
+    margin-top: 16px !important;
+    padding: 18px 14px !important;
+    border-radius: 18px !important;
   }
 }
 
