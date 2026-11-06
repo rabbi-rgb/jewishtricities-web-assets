@@ -3,13 +3,15 @@
 
   var path = window.location.pathname || '';
   var search = window.location.search || '';
-  var isLightUpEvent =
+  var isRegistrationPage =
     /\/tools\/events\/register(?:_cdo|\.asp)?\/eventid\/24229(?:\/|$)/i.test(path) ||
     /(?:^|[?&])eventid=24229(?:&|$)/i.test(search);
+  var isReceiptPath = /\/tools\/events\/register(?:_cdo|\.asp)?\/code\//i.test(path);
+  var isReceipt = false;
 
-  if (!isLightUpEvent) return;
+  if (!isRegistrationPage && !isReceiptPath) return;
 
-  document.documentElement.classList.add('tc-lightup-2026');
+  if (isRegistrationPage) document.documentElement.classList.add('tc-lightup-2026');
 
   var state = window.__tcLightUp2026 || {
     amount: 0,
@@ -81,6 +83,27 @@
           '<img class="tc-lightup-menorah" src="https://cdn.jsdelivr.net/gh/rabbi-rgb/jewishtricities-web-assets@a1fab701965c843b97213093452e7ad2365ad6c9/light-up-2026-menorah.png" alt="">',
           '<div class="tc-lightup-art__note">Share the light</div>',
         '</div>',
+      '</div>'
+    ].join('');
+
+    form.parentNode.insertBefore(hero, form);
+  }
+
+  function buildReceiptHero() {
+    if (document.getElementById('tc-lightup-receipt-hero')) return;
+
+    var form = document.getElementById('RegisterSinglePage');
+    if (!form || !form.parentNode) return;
+
+    var hero = document.createElement('section');
+    hero.id = 'tc-lightup-receipt-hero';
+    hero.setAttribute('aria-labelledby', 'tc-lightup-receipt-title');
+    hero.innerHTML = [
+      '<div class="tc-lightup-receipt-hero__check" aria-hidden="true">✓</div>',
+      '<div>',
+        '<p class="tc-lightup-eyebrow">Reservation confirmed</p>',
+        '<h1 id="tc-lightup-receipt-title">You’re registered!</h1>',
+        '<p>Light Up the Tri-Cities · Tuesday, December 29 · 5:30–6:30 PM</p>',
       '</div>'
     ].join('');
 
@@ -295,6 +318,10 @@
 
   function run() {
     state.scheduled = false;
+    if (isReceipt) {
+      buildReceiptHero();
+      return;
+    }
     buildHero();
     polishGuestControls();
     initDonation();
@@ -307,6 +334,15 @@
   }
 
   function start() {
+    if (isReceiptPath) {
+      var pageText = (document.title || '') + ' ' + ((document.body && document.body.textContent) || '');
+      if (!/Light Up the Tri-Cities/i.test(pageText)) return;
+      isReceipt = true;
+      document.documentElement.classList.add('tc-lightup-2026', 'tc-lightup-receipt');
+      run();
+      return;
+    }
+
     attachListeners();
     run();
 
