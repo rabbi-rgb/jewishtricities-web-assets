@@ -336,7 +336,7 @@ html.tc-lightup-2026 #Performances .toggle_options {
   padding: 22px !important;
 }
 
-html.tc-lightup-2026 #Performances .toggle_options[style*="display: block"] {
+html.tc-lightup-2026 #Performances .toggle_options:not([style*="display: none"]) {
   display: flex !important;
 }
 
@@ -805,7 +805,7 @@ html.tc-lightup-2026 #Summary #Totals {
     font-size: 27px !important;
   }
 
-  html.tc-lightup-2026 #Performances .toggle_options[style*="display: block"] {
+  html.tc-lightup-2026 #Performances .toggle_options:not([style*="display: none"]) {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
