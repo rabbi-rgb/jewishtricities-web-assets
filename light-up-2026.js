@@ -155,6 +155,18 @@
     });
   }
 
+  function polishReserverFields() {
+    var title = document.getElementById('ReserversTitle');
+    if (!title) return;
+
+    title.value = '';
+    var row = title.closest('.clearfix.small_vertical_padding');
+    if (!row) return;
+
+    row.classList.add('tc-lightup-hidden-title');
+    row.setAttribute('aria-hidden', 'true');
+  }
+
   function normalizeSurvey(survey) {
     var question = survey.querySelector('.form-label-left > label:first-child, .form-label-top > label:first-child');
     text(question, surveyQuestion);
@@ -324,6 +336,7 @@
     }
     buildHero();
     polishGuestControls();
+    polishReserverFields();
     initDonation();
   }
 
