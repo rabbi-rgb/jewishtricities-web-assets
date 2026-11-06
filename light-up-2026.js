@@ -38,6 +38,8 @@
     'Other'
   ];
 
+  var surveyQuestion = 'What brings you to this celebration? (Optional)';
+
   function text(element, value) {
     if (element && element.textContent !== value) element.textContent = value;
   }
@@ -108,6 +110,16 @@
       text(quantityLabel, 'Number of guests');
     }
 
+    var reservationCount = document.querySelectorAll('#performance_32755_reservations .reservation').length;
+    text(
+      document.querySelector('#performance_32755_addAttendeeButton span'),
+      reservationCount ? 'Add guests' : 'Add reservation'
+    );
+    text(
+      document.querySelector('#performance_32755_additionalsToggle .toggle_message'),
+      '+ Add more people'
+    );
+
     text(
       document.querySelector('#Performances > .regular'),
       'Choose the number of adults and children attending. After selecting your guests, you’ll have the option to support the celebration with a donation.'
@@ -121,6 +133,9 @@
   }
 
   function normalizeSurvey(survey) {
+    var question = survey.querySelector('.form-label-left > label:first-child, .form-label-top > label:first-child');
+    text(question, surveyQuestion);
+
     var inputs = survey.querySelectorAll('input[type="radio"]');
     Array.prototype.forEach.call(inputs, function (input, index) {
       if (!surveyChoices[index]) return;
