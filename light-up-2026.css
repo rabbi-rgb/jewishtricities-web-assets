@@ -1054,3 +1054,81 @@ html.tc-lightup-2026 #Summary #Totals {
     transition: none;
   }
 }
+
+/* Light Up RSVP typography and controls. */
+html.tc-lightup-2026 #RegisterSinglePage:has(#Performances) {
+  scroll-margin-top: 116px;
+}
+
+html.tc-lightup-2026 #RegisterBody:has(#Performances) {
+  --rsvp-font: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Performances > .title {
+  font: 730 clamp(27px, 4vw, 36px)/1.13 var(--rsvp-font) !important;
+  letter-spacing: -.035em;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage :is(#ReserversInformation, #Payment, #Summary) .title.large {
+  font: 680 22px/1.2 var(--rsvp-font) !important;
+  letter-spacing: -.025em;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage :is(#Performances > .regular, .tc-lightup-donation__intro) {
+  font: 400 15px/1.55 var(--rsvp-font) !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #RegisterBody :is(input:not([type]), input[type="text"], input[type="email"], input[type="tel"], select) {
+  background-color: #fbfcfc !important;
+  border-color: #8b969c !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  font: 400 16px/1.35 var(--rsvp-font) !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #RegisterBody input[aria-invalid="true"] {
+  border-color: #a3211c !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #RegisterBody :is(input, select):focus-visible {
+  border-color: #006b75 !important;
+  outline: 2px solid #006b75 !important;
+  outline-offset: 2px !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Performances .performance {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Performances .toggle_options {
+  padding-inline: 0 !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Performances .toggle_message {
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage .tc-lightup-donation__choice {
+  font-family: var(--rsvp-font);
+  align-items: center;
+  box-shadow: none;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage .tc-lightup-donation__choice:has(input:checked) {
+  border-color: #006b75;
+  background: #edf7f6;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #RegisterBody #SubmitButton {
+  min-height: 50px !important;
+  padding-inline: 26px !important;
+  white-space: normal;
+}
+
+@media (max-width: 600px) {
+  html.tc-lightup-2026 #RegisterSinglePage .tc-lightup-donation__choices {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 135px), 1fr));
+  }
+}
