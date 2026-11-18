@@ -394,6 +394,12 @@
     writeNativeDonation(nativeInput, state.amount);
   }
 
+  function refreshAfterInteraction() {
+    window.setTimeout(run, 100);
+    window.setTimeout(run, 400);
+    window.setTimeout(run, 900);
+  }
+
   function initDonation() {
     var nativeInput = document.getElementById('TotalDonation');
     var summary = document.getElementById('Summary');
@@ -419,6 +425,7 @@
   function handleChange(event) {
     var target = event.target;
     if (!target) return;
+    refreshAfterInteraction();
     if (target.id === 'ReserversOptIn') {
       target.dataset.tcConsentTouched = 'true';
       return;
@@ -470,6 +477,7 @@
   }
 
   function handleSubmitClick(event) {
+    refreshAfterInteraction();
     if (!event.target.closest('#SubmitButton') || state.choice !== 'other') return;
     var custom = document.getElementById('tc-lightup-custom-amount');
     if (custom && !custom.checkValidity()) {
