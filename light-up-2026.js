@@ -16,6 +16,7 @@
   var state = window.__tcLightUp2026 || {
     amount: 0,
     choice: '0',
+    donationOptedIn: false,
     donationInitialized: false,
     listenersAttached: false,
     observer: null,
@@ -202,22 +203,27 @@
     card.setAttribute('aria-labelledby', 'tc-lightup-donation-title');
     card.innerHTML = [
       '<div class="tc-lightup-section-kicker">Optional donation</div>',
-      '<h2 id="tc-lightup-donation-title">Would you consider donating?</h2>',
+      '<h2 id="tc-lightup-donation-title"><label for="tc-lightup-donation-opt-in">',
+        '<input id="tc-lightup-donation-opt-in" type="checkbox" aria-controls="tc-lightup-donation-options"> ',
+        'Would you consider making an optional donation?',
+      '</label></h2>',
       '<p class="tc-lightup-donation__intro">Your RSVP is free. A gift helps make this community celebration possible.</p>',
-      '<div class="tc-lightup-donation__choices">',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="0" checked><span><strong>No donation</strong><small>$0</small></span></label>',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="36"><span><strong>Candle Sponsor</strong><small>$36</small></span></label>',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="72"><span><strong>Celebration Supporter</strong><small>$72</small></span></label>',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="180"><span><strong>Festival Friend</strong><small>$180</small></span></label>',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="360"><span><strong>Community Leader</strong><small>$360</small></span></label>',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="540"><span><strong>Light Bearer</strong><small>$540</small></span></label>',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="1800"><span><strong>Event Sponsor</strong><small>$1,800</small></span></label>',
-        '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="other"><span><strong>Other amount</strong><small>Choose an amount</small></span></label>',
-      '</div>',
-      '<div id="tc-lightup-custom-donation" hidden>',
-        '<label for="tc-lightup-custom-amount">Other amount (CAD)</label>',
-        '<div class="tc-lightup-amount-input"><span aria-hidden="true">$</span><input id="tc-lightup-custom-amount" type="number" min="0" step="0.01" inputmode="decimal" aria-label="Other donation amount in Canadian dollars"></div>',
-        '<p id="tc-lightup-donation-error" hidden>Please enter an amount of $0 or more.</p>',
+      '<div id="tc-lightup-donation-options" hidden>',
+        '<div class="tc-lightup-donation__choices">',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="0" checked><span><strong>No donation</strong><small>$0</small></span></label>',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="36"><span><strong>Candle Sponsor</strong><small>$36</small></span></label>',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="72"><span><strong>Celebration Supporter</strong><small>$72</small></span></label>',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="180"><span><strong>Festival Friend</strong><small>$180</small></span></label>',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="360"><span><strong>Community Leader</strong><small>$360</small></span></label>',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="540"><span><strong>Light Bearer</strong><small>$540</small></span></label>',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="1800"><span><strong>Event Sponsor</strong><small>$1,800</small></span></label>',
+          '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="other"><span><strong>Other amount</strong><small>Choose an amount</small></span></label>',
+        '</div>',
+        '<div id="tc-lightup-custom-donation" hidden>',
+          '<label for="tc-lightup-custom-amount">Other amount (CAD)</label>',
+          '<div class="tc-lightup-amount-input"><span aria-hidden="true">$</span><input id="tc-lightup-custom-amount" type="number" min="0" step="0.01" inputmode="decimal" aria-label="Other donation amount in Canadian dollars"></div>',
+          '<p id="tc-lightup-donation-error" hidden>Please enter an amount of $0 or more.</p>',
+        '</div>',
       '</div>'
     ].join('');
     return card;
@@ -239,6 +245,9 @@
   }
 
   function updateDonationCard(card, nativeInput) {
+    card.querySelector('#tc-lightup-donation-opt-in').checked = state.donationOptedIn;
+    card.querySelector('#tc-lightup-donation-options').hidden = !state.donationOptedIn;
+
     var selected = card.querySelector('input[name="tc_lightup_donation"][value="' + state.choice + '"]');
     if (!selected) {
       state.choice = 'other';
@@ -248,7 +257,7 @@
 
     var customWrap = card.querySelector('#tc-lightup-custom-donation');
     var customInput = card.querySelector('#tc-lightup-custom-amount');
-    customWrap.hidden = state.choice !== 'other';
+    customWrap.hidden = !state.donationOptedIn || state.choice !== 'other';
     if (state.choice === 'other' && document.activeElement !== customInput) {
       customInput.value = Number(state.amount).toFixed(2);
     }
@@ -264,6 +273,7 @@
     if (!state.donationInitialized) {
       var existing = parseAmount(nativeInput.value);
       state.amount = existing;
+      state.donationOptedIn = existing > 0;
       state.choice = Object.prototype.hasOwnProperty.call(donationChoices, String(existing)) ? String(existing) : 'other';
       state.donationInitialized = true;
     }
@@ -279,7 +289,22 @@
 
   function handleChange(event) {
     var target = event.target;
-    if (!target || !target.matches('#tc-lightup-donation input[name="tc_lightup_donation"]')) return;
+    if (!target) return;
+    if (target.id === 'tc-lightup-donation-opt-in') {
+      state.donationOptedIn = target.checked;
+      var card = document.getElementById('tc-lightup-donation');
+      if (!state.donationOptedIn) {
+        state.choice = '0';
+        state.amount = 0;
+        var customInput = card.querySelector('#tc-lightup-custom-amount');
+        customInput.value = '';
+        customInput.setCustomValidity('');
+        card.querySelector('#tc-lightup-donation-error').hidden = true;
+      }
+      updateDonationCard(card, document.getElementById('TotalDonation'));
+      return;
+    }
+    if (!state.donationOptedIn || !target.matches('#tc-lightup-donation input[name="tc_lightup_donation"]')) return;
 
     state.choice = target.value;
     if (state.choice === 'other') {
@@ -288,17 +313,18 @@
         custom.value = Number(state.amount).toFixed(2);
         custom.setCustomValidity('');
         document.getElementById('tc-lightup-donation-error').hidden = true;
+        document.getElementById('tc-lightup-custom-donation').hidden = false;
         custom.focus();
       }
     } else {
       state.amount = donationChoices[state.choice];
     }
-    schedule();
+    updateDonationCard(document.getElementById('tc-lightup-donation'), document.getElementById('TotalDonation'));
   }
 
   function handleInput(event) {
     var target = event.target;
-    if (!target || target.id !== 'tc-lightup-custom-amount') return;
+    if (!state.donationOptedIn || !target || target.id !== 'tc-lightup-custom-amount') return;
 
     state.choice = 'other';
     var valid = target.value !== '' && Number.isFinite(Number(target.value)) && Number(target.value) >= 0;
