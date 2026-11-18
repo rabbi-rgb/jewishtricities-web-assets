@@ -1155,6 +1155,312 @@ html.tc-lightup-2026 #ReserversInformation .tc-lightup-address-intro p {
   font: 400 13px/1.5 var(--rsvp-font, system-ui, -apple-system, sans-serif) !important;
 }
 
+/* 2026-11-18 registration audit refinements.
+   These rules remain scoped to the two Light Up event pages. */
+html.tc-lightup-2026 .mosad_sitewide_alert {
+  display: none !important;
+}
+
+html.tc-lightup-2026 .co_content_container {
+  background: #faf9f5 !important;
+}
+
+html.tc-lightup-2026 #tc-lightup-hero {
+  margin-bottom: 30px !important;
+}
+
+html.tc-lightup-2026 .tc-lightup-facts {
+  gap: 9px !important;
+}
+
+html.tc-lightup-2026 .tc-lightup-facts li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 13px !important;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+html.tc-lightup-2026 .tc-lightup-facts li::before {
+  display: none !important;
+}
+
+html.tc-lightup-2026 .tc-lightup-warm-note {
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, .82);
+  font: 600 13px/1.45 system-ui, -apple-system, sans-serif;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage {
+  border: 1px solid #deded9 !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: 0 12px 34px rgba(17, 63, 88, .06) !important;
+}
+
+html.tc-lightup-2026 body #RegisterSinglePage #RegisterBody:has(#Performances) {
+  max-width: 720px !important;
+  padding: clamp(24px, 5vw, 42px) !important;
+}
+
+html.tc-lightup-2026 .tc-lightup-form-intro {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 30px;
+  padding: 0 0 24px;
+  border-bottom: 1px solid #e7e7e3;
+}
+
+html.tc-lightup-2026 .tc-lightup-form-intro__kicker {
+  margin: 0 0 6px;
+  color: #5b5b5f;
+  font: 700 12px/1.3 system-ui, -apple-system, sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+html.tc-lightup-2026 .tc-lightup-form-intro h2 {
+  margin: 0;
+  color: #1d1d1f;
+  font: 720 clamp(27px, 4vw, 34px)/1.1 system-ui, -apple-system, sans-serif;
+  letter-spacing: -.035em;
+}
+
+html.tc-lightup-2026 .tc-lightup-free-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 13px;
+  border-radius: 999px;
+  color: #1d1d1f;
+  background: #f1f1ef;
+  font: 700 14px/1 system-ui, -apple-system, sans-serif;
+}
+
+html.tc-lightup-2026 .tc-lightup-step-heading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0;
+  color: #1d1d1f;
+  font: 700 clamp(21px, 3vw, 25px)/1.2 system-ui, -apple-system, sans-serif;
+  letter-spacing: -.025em;
+}
+
+html.tc-lightup-2026 .tc-lightup-step-number {
+  display: inline-flex;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: #1d1d1f;
+  background: #f3f3f1;
+  font-weight: 600;
+}
+
+html.tc-lightup-2026 .tc-lightup-step-optional {
+  color: #626266;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+html.tc-lightup-2026 .tc-lightup-section-copy {
+  margin: 10px 0 18px !important;
+  color: #626266 !important;
+  font: 400 15px/1.55 system-ui, -apple-system, sans-serif !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Performances > .title,
+html.tc-lightup-2026 #RegisterSinglePage #ReserversInformation > .large_top_padding > .title.large {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Performances > .regular {
+  max-width: none !important;
+  margin: 10px 0 18px !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Performances .performance {
+  border: 1px solid #e1e1de !important;
+  border-radius: 12px !important;
+  background: #fafafa !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #ReserversInformation {
+  margin-top: 30px !important;
+  padding-top: 30px !important;
+  border-top: 1px solid #e7e7e3 !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #AdditionalInformation.tc-lightup-survey-hidden,
+html.tc-lightup-2026 #RegisterSinglePage #AdditionalInformation[hidden] {
+  display: none !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #tc-lightup-donation {
+  margin-top: 30px !important;
+  padding-top: 30px !important;
+  border-top: 1px solid #e7e7e3 !important;
+}
+
+html.tc-lightup-2026 .tc-lightup-donation__intro {
+  margin: 10px 0 16px !important;
+}
+
+html.tc-lightup-2026 .tc-lightup-donation-toggle {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  min-height: 54px;
+  margin: 0 !important;
+  padding: 0 15px;
+  border: 1px solid #d9d9d5;
+  border-radius: 10px;
+  color: #1d1d1f !important;
+  background: #fbfbfa;
+  cursor: pointer;
+  box-sizing: border-box;
+  font: 650 15px/1.3 system-ui, -apple-system, sans-serif;
+}
+
+html.tc-lightup-2026 .tc-lightup-donation-toggle:has(input:checked) {
+  border-color: #006b75;
+  background: #f1f8f7;
+}
+
+html.tc-lightup-2026 .tc-lightup-donation-toggle input {
+  flex: 0 0 20px;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  accent-color: #006b75;
+}
+
+html.tc-lightup-2026 .tc-lightup-donation-toggle__arrow {
+  margin-left: auto;
+  color: #666;
+  font-size: 20px;
+  line-height: 1;
+  transition: transform .18s ease;
+}
+
+html.tc-lightup-2026 .tc-lightup-donation-toggle:has(input:checked) .tc-lightup-donation-toggle__arrow {
+  transform: rotate(180deg);
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #tc-lightup-donation-options:not([hidden]) {
+  margin-top: 14px;
+}
+
+html.tc-lightup-2026 .tc-lightup-summary-header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+html.tc-lightup-2026 .tc-lightup-summary-header h2 {
+  margin: 0;
+  color: #1d1d1f;
+  font: 700 20px/1.25 system-ui, -apple-system, sans-serif;
+  letter-spacing: -.02em;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Summary.tc-lightup-summary-empty {
+  display: none !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Summary:not(.tc-lightup-summary-empty) {
+  margin-top: 30px !important;
+  padding-top: 22px !important;
+  border-top: 1px solid #e7e7e3 !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Summary .title.large {
+  display: none !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #Buttons {
+  margin-top: 14px !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #SubmitButton {
+  width: 100% !important;
+  min-height: 54px !important;
+  border-radius: 10px !important;
+  background: #006b75 !important;
+  color: #fff !important;
+  font-size: 16px !important;
+}
+
+html.tc-lightup-2026 #RegisterSinglePage #SubmitButton:enabled:hover {
+  background: #00555e !important;
+}
+
+@media (max-width: 600px) {
+  html.tc-lightup-2026 #tc-lightup-hero {
+    margin-bottom: 18px !important;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-hero__inner {
+    padding: 26px 20px 18px !important;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-facts li {
+    min-height: 32px;
+    border-radius: 9px;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-art {
+    min-height: 126px !important;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-menorah {
+    height: 102px !important;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-art__note {
+    display: none;
+  }
+
+  html.tc-lightup-2026 body #RegisterSinglePage #RegisterBody:has(#Performances) {
+    padding: 24px 16px !important;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-form-intro {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-step-number {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-step-heading {
+    flex-wrap: wrap;
+  }
+
+  html.tc-lightup-2026 .tc-lightup-step-optional {
+    margin-left: 50px;
+  }
+}
+
 @media (max-width: 600px) {
   html.tc-lightup-2026 #ReserversInformation .tc-lightup-address-intro {
     margin-top: 4px !important;
