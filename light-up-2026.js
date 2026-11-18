@@ -244,9 +244,12 @@
       addressIntro.id = 'tc-lightup-address-intro';
       addressIntro.className = 'tc-lightup-address-intro';
     }
-    addressIntro.innerHTML =
-      '<h3>Address</h3>' +
-      '<p>Please share your home address. It stays with your registration and also supports secure processing if you choose to donate.</p>';
+    var addressCopy = 'Please share your home address. It stays with your registration and also supports secure processing if you choose to donate.';
+    var addressHeading = addressIntro.querySelector('h3');
+    var addressParagraph = addressIntro.querySelector('p');
+    if (!addressHeading || !addressParagraph || addressHeading.textContent !== 'Address' || addressParagraph.textContent !== addressCopy) {
+      addressIntro.innerHTML = '<h3>Address</h3><p>' + addressCopy + '</p>';
+    }
 
     if (phoneRow) container.insertBefore(phoneRow, addressRow);
     container.insertBefore(addressIntro, addressRow);
@@ -479,18 +482,29 @@
     document.addEventListener('click', handleSubmitClick, true);
   }
 
+  function observeDynamicForm() {
+    if (state.observer) {
+      state.observer.observe(document.body || document.documentElement, { childList: true, subtree: true });
+    }
+  }
+
   function run() {
     state.scheduled = false;
-    if (isReceipt) {
-      buildReceiptHero();
-      return;
+    if (state.observer) state.observer.disconnect();
+    try {
+      if (isReceipt) {
+        buildReceiptHero();
+        return;
+      }
+      buildHero();
+      polishGuestControls();
+      polishReserverFields();
+      polishConsentAndSurvey();
+      initDonation();
+      polishSummary();
+    } finally {
+      observeDynamicForm();
     }
-    buildHero();
-    polishGuestControls();
-    polishReserverFields();
-    polishConsentAndSurvey();
-    initDonation();
-    polishSummary();
   }
 
   function schedule() {
@@ -513,10 +527,9 @@
     attachListeners();
     run();
 
-    var body = document.getElementById('RegisterBody');
-    if (body && !state.observer) {
+    if (!state.observer) {
       state.observer = new MutationObserver(schedule);
-      state.observer.observe(body, { childList: true, subtree: true });
+      observeDynamicForm();
     }
 
     window.setTimeout(run, 400);
