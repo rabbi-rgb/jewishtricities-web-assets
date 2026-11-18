@@ -425,6 +425,7 @@
   function handleChange(event) {
     var target = event.target;
     if (!target) return;
+    run();
     refreshAfterInteraction();
     if (target.id === 'ReserversOptIn') {
       target.dataset.tcConsentTouched = 'true';
@@ -477,6 +478,7 @@
   }
 
   function handleSubmitClick(event) {
+    run();
     refreshAfterInteraction();
     if (!event.target.closest('#SubmitButton') || state.choice !== 'other') return;
     var custom = document.getElementById('tc-lightup-custom-amount');
