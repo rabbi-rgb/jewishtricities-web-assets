@@ -151,21 +151,58 @@
 
     Array.prototype.forEach.call(document.querySelectorAll('#RegisterSinglePage .regular'), function (element) {
       if (/sponsorship selection before submitting your registration/i.test(element.textContent || '')) {
-        text(element, 'Please review the number of adults and children and any donation selection before submitting your registration.');
+        text(element, 'We’ll use these details to send your confirmation and any important event updates.');
       }
     });
   }
 
   function polishReserverFields() {
+    var section = document.getElementById('ReserversInformation');
     var title = document.getElementById('ReserversTitle');
-    if (!title) return;
+    if (!section || !title) return;
 
     title.value = '';
-    var row = title.closest('.clearfix.small_vertical_padding');
-    if (!row) return;
+    var titleRow = title.closest('.clearfix.small_vertical_padding');
+    if (titleRow) {
+      titleRow.classList.add('tc-lightup-hidden-title');
+      titleRow.setAttribute('aria-hidden', 'true');
+    }
 
-    row.classList.add('tc-lightup-hidden-title');
-    row.setAttribute('aria-hidden', 'true');
+    text(section.querySelector('.title.large'), 'Contact details');
+
+    function fieldRow(id) {
+      var field = document.getElementById(id);
+      return field && field.closest('.clearfix.small_vertical_padding');
+    }
+
+    function relabel(id, labelText, ariaLabel) {
+      var field = document.getElementById(id);
+      var row = fieldRow(id);
+      if (row) text(row.querySelector('.label'), labelText);
+      if (field && ariaLabel) field.setAttribute('aria-label', ariaLabel);
+    }
+
+    var firstNameRow = fieldRow('ReserversFirstName');
+    var phoneRow = fieldRow('ReserversPhone');
+    var addressRow = fieldRow('ReserversBillingAddress1');
+    var container = firstNameRow && firstNameRow.parentNode;
+    if (!container || !addressRow) return;
+
+    relabel('ReserversBillingAddress1', 'Street address', 'Street address');
+    relabel('ReserversBillingPostCode', 'Postal code', 'Postal code');
+
+    var addressIntro = document.getElementById('tc-lightup-address-intro');
+    if (!addressIntro) {
+      addressIntro = document.createElement('div');
+      addressIntro.id = 'tc-lightup-address-intro';
+      addressIntro.className = 'tc-lightup-address-intro';
+      addressIntro.innerHTML =
+        '<h3>Address</h3>' +
+        '<p>Kept with your registration and used to securely process an optional donation.</p>';
+    }
+
+    if (phoneRow) container.insertBefore(phoneRow, addressRow);
+    container.insertBefore(addressIntro, addressRow);
   }
 
   function normalizeSurvey(survey) {
