@@ -13,6 +13,16 @@
 
   if (isRegistrationPage) document.documentElement.classList.add('tc-lightup-2026');
 
+  function ensureStyles() {
+    var id = 'tc-light-up-2026-audit-style';
+    if (document.getElementById(id)) return;
+    var link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/gh/rabbi-rgb/jewishtricities-web-assets@73a442ad9a27e8154c6d07f0e53030d7387ac3e0/light-up-2026.css';
+    (document.body || document.head || document.documentElement).appendChild(link);
+  }
+
   var state = window.__tcLightUp2026 || {
     amount: 0,
     choice: '0',
@@ -34,14 +44,6 @@
     '540': 540,
     '1800': 1800
   };
-
-  var surveyChoices = [
-    'I am Jewish and want to celebrate Chanukkah',
-    'I enjoy learning more about traditions and cultures.',
-    'Other'
-  ];
-
-  var surveyQuestion = 'What brings you to this celebration? (Optional)';
 
   function text(element, value) {
     if (element && element.textContent !== value) element.textContent = value;
@@ -66,11 +68,12 @@
         '<div class="tc-lightup-hero__content">',
           '<p class="tc-lightup-eyebrow">A Chanukah celebration for the whole community</p>',
           '<h1 class="tc-lightup-title" id="tc-lightup-title"><em>Light Up</em> the Tri-Cities</h1>',
-          '<p class="tc-lightup-tagline">An evening of light, warmth and community spirit at Spirit Square. Free admission; advance registration is appreciated.</p>',
+          '<p class="tc-lightup-tagline">Come celebrate Chanukah together! Join us for a free outdoor evening with a giant menorah lighting, fire juggling, doughnuts, hot chocolate, music and fun for the kids.</p>',
           '<ul class="tc-lightup-facts">',
-            '<li>Tuesday, December 29</li>',
+            '<li>Tuesday, December 8</li>',
             '<li>5:30–6:30 PM</li>',
             '<li>Spirit Square, Coquitlam</li>',
+            '<li>Free admission · All are welcome</li>',
           '</ul>',
           '<ul class="tc-lightup-highlights">',
             '<li>Giant LED menorah lighting</li>',
@@ -78,6 +81,7 @@
             '<li>Fire-juggling show</li>',
             '<li>Prizes for kids &amp; upbeat music</li>',
           '</ul>',
+          '<p class="tc-lightup-warm-note">This celebration is entirely outdoors. Please dress warmly.</p>',
           '<a class="tc-lightup-cta" href="#RegisterSinglePage">Reserve your place</a>',
         '</div>',
         '<div class="tc-lightup-art" aria-hidden="true">',
@@ -88,6 +92,36 @@
     ].join('');
 
     form.parentNode.insertBefore(hero, form);
+  }
+
+  function stepHeading(number, label, optional) {
+    var heading = document.createElement('span');
+    heading.className = 'tc-lightup-step-heading';
+    heading.innerHTML =
+      '<span class="tc-lightup-step-number" aria-hidden="true">' + number + '</span>' +
+      '<span>' + label + '</span>' +
+      (optional ? '<span class="tc-lightup-step-optional">(Optional)</span>' : '');
+    return heading;
+  }
+
+  function setStepTitle(element, number, label, optional) {
+    if (!element) return;
+    var existing = element.querySelector('.tc-lightup-step-heading');
+    if (existing) return;
+    element.textContent = '';
+    element.appendChild(stepHeading(number, label, optional));
+  }
+
+  function buildFormIntro() {
+    var performances = document.getElementById('Performances');
+    if (!performances || document.getElementById('tc-lightup-form-intro')) return;
+    var intro = document.createElement('div');
+    intro.id = 'tc-lightup-form-intro';
+    intro.className = 'tc-lightup-form-intro';
+    intro.innerHTML =
+      '<div><p class="tc-lightup-form-intro__kicker">Reserve your place</p>' +
+      '<h2>Join us for Chanukah!</h2></div><span class="tc-lightup-free-badge">Free</span>';
+    performances.insertBefore(intro, performances.firstChild);
   }
 
   function buildReceiptHero() {
@@ -104,7 +138,7 @@
       '<div>',
         '<p class="tc-lightup-eyebrow">Reservation confirmed</p>',
         '<h1 id="tc-lightup-receipt-title">You’re registered!</h1>',
-        '<p>Light Up the Tri-Cities · Tuesday, December 29 · 5:30–6:30 PM</p>',
+        '<p>Light Up the Tri-Cities · Tuesday, December 8 · 5:30–6:30 PM</p>',
       '</div>'
     ].join('');
 
@@ -114,6 +148,10 @@
   function polishGuestControls() {
     var select = document.getElementById('performance_32755_priceCategory');
     if (!select) return;
+
+    buildFormIntro();
+    var performances = document.getElementById('Performances');
+    setStepTitle(performances && performances.querySelector(':scope > .title'), '1', "Who's coming?", false);
 
     Array.prototype.forEach.call(select.options, function (option) {
       if (option.value === '12255' || /^Adult(?:\s+-|$)/i.test(option.textContent || '')) {
@@ -146,7 +184,7 @@
 
     text(
       document.querySelector('#Performances > .regular'),
-      'Choose the number of adults and children attending. After selecting your guests, you’ll have the option to support the celebration with a donation.'
+      'Let us know how many people to expect. Choose Adult or Child, select the quantity, then add the reservation.'
     );
 
     Array.prototype.forEach.call(document.querySelectorAll('#RegisterSinglePage .regular'), function (element) {
@@ -168,7 +206,16 @@
       titleRow.setAttribute('aria-hidden', 'true');
     }
 
-    text(section.querySelector('.title.large'), 'Contact details');
+    var sectionTitle = section.querySelector('.title.large');
+    setStepTitle(sectionTitle, '2', 'Your details', false);
+    var sectionCopy = document.getElementById('tc-lightup-details-copy');
+    if (!sectionCopy && sectionTitle) {
+      sectionCopy = document.createElement('p');
+      sectionCopy.id = 'tc-lightup-details-copy';
+      sectionCopy.className = 'tc-lightup-section-copy';
+      sectionCopy.textContent = 'Where should we send your confirmation?';
+      sectionTitle.insertAdjacentElement('afterend', sectionCopy);
+    }
 
     function fieldRow(id) {
       var field = document.getElementById(id);
@@ -198,25 +245,39 @@
       addressIntro.className = 'tc-lightup-address-intro';
       addressIntro.innerHTML =
         '<h3>Address</h3>' +
-        '<p>Kept with your registration and used to securely process an optional donation.</p>';
+        '<p>Please share your home address. It stays with your registration and also supports secure processing if you choose to donate.</p>';
     }
 
     if (phoneRow) container.insertBefore(phoneRow, addressRow);
     container.insertBefore(addressIntro, addressRow);
+
+    var country = document.getElementById('ReserversCountry');
+    if (country && !country.dataset.tcDefaultCountry) {
+      country.dataset.tcDefaultCountry = 'true';
+      var canada = Array.prototype.find.call(country.options, function (option) {
+        return /^Canada$/i.test((option.textContent || '').trim());
+      });
+      if (canada && (!country.value || /please choose/i.test(country.options[country.selectedIndex].textContent || ''))) {
+        country.value = canada.value;
+        country.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
   }
 
-  function normalizeSurvey(survey) {
-    var question = survey.querySelector('.form-label-left > label:first-child, .form-label-top > label:first-child');
-    text(question, surveyQuestion);
+  function polishConsentAndSurvey() {
+    var optIn = document.getElementById('ReserversOptIn');
+    if (optIn && !optIn.dataset.tcConsentInitialized) {
+      optIn.checked = false;
+      optIn.defaultChecked = false;
+      optIn.dataset.tcConsentInitialized = 'true';
+    }
 
-    var inputs = survey.querySelectorAll('input[type="radio"]');
-    Array.prototype.forEach.call(inputs, function (input, index) {
-      if (!surveyChoices[index]) return;
-      input.value = surveyChoices[index];
-      var label = survey.querySelector('label[for="' + input.id + '"]');
-      var labelText = label && label.querySelector('span');
-      text(labelText || label, surveyChoices[index]);
-    });
+    var survey = document.getElementById('AdditionalInformation');
+    if (survey) {
+      survey.hidden = true;
+      survey.setAttribute('aria-hidden', 'true');
+      survey.classList.add('tc-lightup-survey-hidden');
+    }
   }
 
   function writeNativeDonation(input, amount) {
@@ -239,12 +300,16 @@
     card.id = 'tc-lightup-donation';
     card.setAttribute('aria-labelledby', 'tc-lightup-donation-title');
     card.innerHTML = [
-      '<div class="tc-lightup-section-kicker">Optional donation</div>',
-      '<h2 id="tc-lightup-donation-title"><label for="tc-lightup-donation-opt-in">',
-        '<input id="tc-lightup-donation-opt-in" type="checkbox" aria-controls="tc-lightup-donation-options"> ',
-        'Would you consider making an optional donation?',
-      '</label></h2>',
-      '<p class="tc-lightup-donation__intro">Your RSVP is free. A gift helps make this community celebration possible.</p>',
+      '<h2 id="tc-lightup-donation-title" class="tc-lightup-step-heading">',
+        '<span class="tc-lightup-step-number" aria-hidden="true">3</span>',
+        '<span>Support the celebration</span>',
+        '<span class="tc-lightup-step-optional">(Optional)</span>',
+      '</h2>',
+      '<p class="tc-lightup-donation__intro">Your RSVP is completely free. If you’d like to help make this community celebration possible, we’d be so grateful. No donation is needed to attend.</p>',
+      '<label class="tc-lightup-donation-toggle" for="tc-lightup-donation-opt-in">',
+        '<input id="tc-lightup-donation-opt-in" type="checkbox" aria-controls="tc-lightup-donation-options">',
+        '<span>Add an optional gift</span><span class="tc-lightup-donation-toggle__arrow" aria-hidden="true">⌄</span>',
+      '</label>',
       '<div id="tc-lightup-donation-options" hidden>',
         '<div class="tc-lightup-donation__choices">',
           '<label class="tc-lightup-donation__choice"><input type="radio" name="tc_lightup_donation" value="0" checked><span><strong>No donation</strong><small>$0</small></span></label>',
@@ -271,14 +336,28 @@
     var summary = document.getElementById('Summary');
     if (!secondary || !summary) return;
 
+    var contact = document.getElementById('ReserversInformation');
     if (card.parentNode !== secondary) secondary.insertBefore(card, summary);
+    if (contact && contact.nextElementSibling !== card) contact.insertAdjacentElement('afterend', card);
 
     var survey = document.getElementById('AdditionalInformation');
     if (survey) {
-      normalizeSurvey(survey);
-      survey.classList.add('tc-lightup-survey');
-      if (card.nextElementSibling !== survey) card.insertAdjacentElement('afterend', survey);
+      survey.hidden = true;
+      survey.setAttribute('aria-hidden', 'true');
+      survey.classList.add('tc-lightup-survey-hidden');
     }
+  }
+
+  function polishSummary() {
+    var summary = document.getElementById('Summary');
+    if (!summary) return;
+    var count = document.querySelectorAll('#performance_32755_reservations .reservation').length;
+    summary.classList.toggle('tc-lightup-summary-empty', count === 0);
+    if (!count || summary.querySelector('.tc-lightup-summary-header')) return;
+    var header = document.createElement('div');
+    header.className = 'tc-lightup-summary-header';
+    header.innerHTML = '<h2>Your reservation</h2><span class="tc-lightup-free-badge">Free</span>';
+    summary.insertBefore(header, summary.firstChild);
   }
 
   function updateDonationCard(card, nativeInput) {
@@ -400,7 +479,9 @@
     buildHero();
     polishGuestControls();
     polishReserverFields();
+    polishConsentAndSurvey();
     initDonation();
+    polishSummary();
   }
 
   function schedule() {
@@ -410,6 +491,7 @@
   }
 
   function start() {
+    ensureStyles();
     if (isReceiptPath) {
       var pageText = (document.title || '') + ' ' + ((document.body && document.body.textContent) || '');
       if (!/Light Up the Tri-Cities/i.test(pageText)) return;
