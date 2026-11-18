@@ -29,6 +29,7 @@
     donationOptedIn: false,
     donationInitialized: false,
     listenersAttached: false,
+    maintenanceTimer: null,
     observer: null,
     scheduled: false,
     writingNative: false
@@ -278,8 +279,8 @@
 
   function polishConsentAndSurvey() {
     var optIn = document.getElementById('ReserversOptIn');
-    if (optIn && !optIn.dataset.tcConsentInitialized) {
-      optIn.checked = false;
+    if (optIn && !optIn.dataset.tcConsentTouched) {
+      if (optIn.checked) optIn.checked = false;
       optIn.defaultChecked = false;
       optIn.dataset.tcConsentInitialized = 'true';
     }
@@ -418,6 +419,10 @@
   function handleChange(event) {
     var target = event.target;
     if (!target) return;
+    if (target.id === 'ReserversOptIn') {
+      target.dataset.tcConsentTouched = 'true';
+      return;
+    }
     if (target.id === 'tc-lightup-donation-opt-in') {
       state.donationOptedIn = target.checked;
       var card = document.getElementById('tc-lightup-donation');
@@ -531,6 +536,7 @@
       state.observer = new MutationObserver(schedule);
       observeDynamicForm();
     }
+    if (!state.maintenanceTimer) state.maintenanceTimer = window.setInterval(run, 800);
 
     window.setTimeout(run, 400);
     window.setTimeout(run, 1200);
