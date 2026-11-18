@@ -243,23 +243,32 @@
       addressIntro = document.createElement('div');
       addressIntro.id = 'tc-lightup-address-intro';
       addressIntro.className = 'tc-lightup-address-intro';
-      addressIntro.innerHTML =
-        '<h3>Address</h3>' +
-        '<p>Please share your home address. It stays with your registration and also supports secure processing if you choose to donate.</p>';
     }
+    addressIntro.innerHTML =
+      '<h3>Address</h3>' +
+      '<p>Please share your home address. It stays with your registration and also supports secure processing if you choose to donate.</p>';
 
     if (phoneRow) container.insertBefore(phoneRow, addressRow);
     container.insertBefore(addressIntro, addressRow);
 
     var country = document.getElementById('ReserversCountry');
-    if (country && !country.dataset.tcDefaultCountry) {
-      country.dataset.tcDefaultCountry = 'true';
+    if (country && !country.dataset.tcCountryListener) {
+      country.dataset.tcCountryListener = 'true';
+      country.addEventListener('change', function () {
+        if (!country.dataset.tcSettingCountry) country.dataset.tcCountryTouched = 'true';
+      });
+    }
+    if (country && !country.dataset.tcCountryTouched) {
       var canada = Array.prototype.find.call(country.options, function (option) {
         return /^Canada$/i.test((option.textContent || '').trim());
       });
       if (canada && (!country.value || /please choose/i.test(country.options[country.selectedIndex].textContent || ''))) {
+        country.dataset.tcSettingCountry = 'true';
+        canada.selected = true;
         country.value = canada.value;
+        country.dispatchEvent(new Event('input', { bubbles: true }));
         country.dispatchEvent(new Event('change', { bubbles: true }));
+        delete country.dataset.tcSettingCountry;
       }
     }
   }
